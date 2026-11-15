@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f9dce9">
+  <title>A Little Birthday Surprise 💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Canvas for Fireworks, Confetti and Particle Bursts -->
+  <canvas id="fireworks" aria-hidden="true"></canvas>
+
+  <!-- Ambient Background Blur Effects -->
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="ambient ambient-three"></div>
+
+  <!-- Background Floating Hearts Container -->
+  <div class="floating-hearts-bg" id="floatingHeartsBg" aria-hidden="true"></div>
+
+  <!-- Top Bar Header -->
+  <header class="topbar">
+    <div class="topbar-title">
+      <span class="tiny-heart">♡</span>
+      <span>A little something made for you</span>
+      <span class="tiny-heart">♡</span>
+    </div>
+    <button id="musicToggle" class="music-btn" aria-label="Toggle background music" title="Play/Pause Music">
+      <span class="music-icon">🎵</span>
+      <span class="music-text">Music</span>
+    </button>
+  </header>
+
+  <!-- Background Audio Player (Optional music) -->
+  <audio id="bgAudio" loop preload="none">
+    <source src="assets/audio/birthday.mp3" type="audio/mpeg">
+    <source src="assets/audio/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <main>
+    <!-- SCREEN 1: INTRO & SLINGSHOT MISSION -->
+    <section id="intro" class="screen intro-screen active">
+      <div class="eyebrow">A tiny birthday mission</div>
+      <h1>Ready for a<br><em>little surprise?</em></h1>
+      <p class="subtext">Pull the arrow down, then let it fly! ✨</p>
+
+      <div class="game-area" id="gameArea">
+        <!-- Heart Target -->
+        <div class="target-glow"></div>
+        <div class="heart-target" id="heartTarget" aria-label="Floating heart target">
+          <span class="heart-icon">💖</span>
+          <span class="heart-pulse-ring"></span>
+        </div>
+
+        <!-- Slingshot Assembly -->
+        <div class="slingshot-container">
+          <svg class="slingshot-svg" id="slingshotSvg">
+            <line id="bandLeft" stroke="#e08bb3" stroke-width="4" stroke-linecap="round" />
+            <line id="bandRight" stroke="#e08bb3" stroke-width="4" stroke-linecap="round" />
+          </svg>
+          <div class="slingshot-frame">
+            <div class="fork-left"></div>
+            <div class="fork-right"></div>
+            <div class="slingshot-stem"></div>
+          </div>
+        </div>
+
+        <!-- Draggable Arrow -->
+        <div class="arrow" id="arrow" role="button" tabindex="0" aria-label="Drag the arrow down and release to shoot">
+          <div class="arrow-head"></div>
+          <div class="arrow-shaft"></div>
+          <div class="arrow-fletching">
+            <span class="feather left"></span>
+            <span class="feather right"></span>
+          </div>
+          <div class="arrow-nock"></div>
+        </div>
+
+        <div class="drag-hint" id="dragHint">
+          <span class="bounce-arrow">↓</span> PULL DOWN & RELEASE <span class="bounce-arrow">↓</span>
+        </div>
+      </div>
+
+      <p class="microcopy">Aim for the heart! Touch & mouse supported.</p>
+    </section>
+
+    <!-- SCREEN 2: BIRTHDAY REVEAL -->
+    <section id="reveal" class="screen reveal-screen">
+      <div class="burst-heart">💖</div>
+      <div class="photo-frame hero-photo">
+        <img src="assets/photos/img.png" alt="Birthday Girl" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="photo-placeholder">
+          <span class="placeholder-icon">📷</span>
+          <span>Add main photo</span>
+          <small>assets/photos/img.png</small>
+        </div>
+      </div>
+      <p class="eyebrow">Today is all about you</p>
+      <h2>Happiest Birthday!</h2>
+      <h3>Happy 22nd Birthday! 🎂</h3>
+      <p class="subtext">Wishing you a day as lovely and bright as your smile. ✨</p>
+      <button class="primary-btn" data-next="letter">
+        There's something I want to tell you <span>💌</span>
+      </button>
+    </section>
+
+    <!-- SCREEN 3: PERSONAL LETTER -->
+    <section id="letter" class="screen letter-screen">
+      <div class="eyebrow">A little note from me</div>
+      <h2>Just for you…</h2>
+
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope">
+          <div class="envelope-back"></div>
+          <div class="letter-card" id="letterCard">
+            <div class="letter-header">
+              <span class="letter-top">Dearest Cousin</span>
+              <span class="letter-heart">♡</span>
+            </div>
+            <p id="personalMessage"></p>
+            <div class="letter-signoff">
+              With all my love, <span class="signoff-heart">💗</span>
+            </div>
+          </div>
+          <div class="envelope-front"></div>
+          <div class="envelope-flap" id="envelopeFlap"></div>
+          <button class="open-envelope-btn" id="openEnvelopeBtn" aria-label="Open Letter">
+            <span class="seal-icon">💌</span>
+            <span class="seal-text">Tap to Open Letter</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="primary-btn" data-next="gallery">
+        One more surprise! <span>✨</span>
+      </button>
+    </section>
+
+    <!-- SCREEN 4: PHOTO GALLERY -->
+    <section id="gallery" class="screen gallery-screen">
+      <div class="eyebrow">Little moments, big memories</div>
+      <h2>A few of my favourite pictures</h2>
+      <p class="subtext">A little collection of lovely memories. 💗</p>
+
+      <div class="photo-grid" id="photoGrid">
+        <figure class="polaroid tilt-left">
+          <div class="polaroid-inner">
+            <img src="assets/photos/img_1.png" alt="Memory one" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="photo-placeholder"><span class="placeholder-icon">📷</span><span>Add img_1.png</span></div>
+          </div>
+          <figcaption>Memory one ♡</figcaption>
+        </figure>
+
+        <figure class="polaroid tilt-right">
+          <div class="polaroid-inner">
+            <img src="assets/photos/img_2.png" alt="Memory two" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="photo-placeholder"><span class="placeholder-icon">📷</span><span>Add img_2.png</span></div>
+          </div>
+          <figcaption>Memory two ♡</figcaption>
+        </figure>
+
+        <figure class="polaroid tilt-left">
+          <div class="polaroid-inner">
+            <img src="assets/photos/img_3.png" alt="Memory three" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="photo-placeholder"><span class="placeholder-icon">📷</span><span>Add img_3.png</span></div>
+          </div>
+          <figcaption>Memory three ♡</figcaption>
+        </figure>
+
+        <figure class="polaroid tilt-right">
+          <div class="polaroid-inner">
+            <img src="assets/photos/img_4.png" alt="Memory four" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="photo-placeholder"><span class="placeholder-icon">📷</span><span>Add img_4.png</span></div>
+          </div>
+          <figcaption>Memory four ♡</figcaption>
+        </figure>
+      </div>
+
+      <button class="primary-btn" data-next="finale">
+        Make one more wish <span>🎆</span>
+      </button>
+    </section>
+
+    <!-- SCREEN 5: FINAL SCREEN -->
+    <section id="finale" class="screen finale-screen">
+      <div class="finale-heart">💖</div>
+      <p class="eyebrow">One last thing…</p>
+      <h2>Happy Birthday<br><em>to you!</em></h2>
+      <p class="finale-line">May this year bring you endless reasons to smile. ✨</p>
+
+      <div class="cake-container" id="cakeContainer" role="button" tabindex="0" aria-label="Interactive birthday cake">
+        <div class="cake">🎂</div>
+        <div class="candle-flame">✨</div>
+        <p class="cake-hint">Tap the cake to make a wish!</p>
+      </div>
+
+      <button class="secondary-btn" id="replayBtn">
+        Watch it again ↻
+      </button>
+    </section>
+  </main>
+
+  <footer>Made with care, just for your special day <span>♡</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+Place these image files in this folder:
+portrait.jpg
+photo-1.jpg
+photo-2.jpg
+photo-3.jpg
+photo-4.jpg
+
+Use your own selected photographs. The website displays placeholders until the images are added.
